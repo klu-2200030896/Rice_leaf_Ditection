@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rice Leaf Disease Detection</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        body {
+            background-image: url('https://www.transparenttextures.com/patterns/green-leaf.png');
+            background-size: cover;
+            background-position: center;
+            color: white;
+            font-family: 'Arial', sans-serif;
+        }
+        .container {
+            max-width: 800px;
+            padding-top: 150px;
+        }
+        .card {
+            background-color: rgba(0, 0, 0, 0.5);
+            border: none;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+        .card-header {
+            background-color: #4CAF50;
+            color: white;
+            text-align: center;
+        }
+        .card-body {
+            padding: 30px;
+        }
+        .btn-upload {
+            background-color: #28a745;
+            border-color: #28a745;
+            font-size: 18px;
+        }
+        .btn-upload:hover {
+            background-color: #218838;
+            border-color: #1e7e34;
+        }
+        .result-container {
+            margin-top: 30px;
+            background-color: rgba(255, 255, 255, 0.8);
+            padding: 20px;
+            border-radius: 8px;
+        }
+        .result-container h3 {
+            color: #333;
+        }
+        .result-container p {
+            font-size: 18px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <div class="card">
+            <div class="card-header">
+                <h3>Rice Leaf Disease Detection</h3>
+                <p>Upload an image of the rice leaf to detect the disease and get fertilizer recommendations.</p>
+            </div>
+            <div class="card-body text-center">
+                <form action="/predict" method="POST" enctype="multipart/form-data">
+                    <div class="form-group">
+                        <input type="file" class="form-control-file" id="imageUpload" name="file" required>
+                    </div>
+                    <button type="submit" class="btn btn-upload btn-block">Upload & Predict</button>
+                </form>
+            </div>
+        </div>
+
+        {% if result %}
+        <div class="result-container">
+            <h3><strong>Prediction Result</strong></h3>
+            <p><strong>Predicted Disease:</strong> {{ result['disease'] }}</p>
+            <p><strong>Recommended Fertilizer:</strong> {{ result['fertilizer'] }}</p>
+        </div>
+        {% endif %}
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
